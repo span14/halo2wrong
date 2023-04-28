@@ -12,8 +12,6 @@ use crate::{
 use num_bigint::BigUint as big_uint;
 use num_traits::{Num, One, Zero};
 use std::{
-    borrow::BorrowMut,
-    cell::RefCell,
     ops::{RangeInclusive, Shl},
     sync::Mutex,
 };
