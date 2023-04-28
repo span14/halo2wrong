@@ -12,8 +12,10 @@ use crate::{
 use num_bigint::BigUint as big_uint;
 use num_traits::{Num, One, Zero};
 use std::{
+    borrow::BorrowMut,
     cell::RefCell,
     ops::{RangeInclusive, Shl},
+    sync::Mutex,
 };
 
 pub fn modulus<F: PrimeField>() -> big_uint {
@@ -105,20 +107,20 @@ impl Dimension {
 
 #[derive(Default)]
 pub struct DimensionMeasurement {
-    instance: RefCell<u64>,
-    advice: RefCell<u64>,
-    fixed: RefCell<u64>,
+    instance: Mutex<u64>,
+    advice: Mutex<u64>,
+    fixed: Mutex<u64>,
 }
 
 impl DimensionMeasurement {
     fn update<C: Into<Any>>(&self, column: C, offset: usize) {
-        let mut target = match column.into() {
-            Any::Instance => self.instance.borrow_mut(),
-            Any::Advice(_advice) => self.advice.borrow_mut(),
-            Any::Fixed => self.fixed.borrow_mut(),
+        let mut lock = match column.into() {
+            Any::Instance => self.instance.lock().unwrap(),
+            Any::Advice(_advice) => self.advice.lock().unwrap(),
+            Any::Fixed => self.fixed.lock().unwrap(),
         };
-        if offset as u64 > *target {
-            *target = offset as u64;
+        if offset as u64 > *lock {
+            *lock = (offset as u64).into();
         }
     }
 
@@ -129,9 +131,9 @@ impl DimensionMeasurement {
         C::FloorPlanner::synthesize(&mut measurement, circuit, config, cs.constants().to_vec())?;
         Ok(Dimension {
             blinding_factor: cs.blinding_factors() as u64,
-            instance: measurement.instance.take(),
-            advice: measurement.advice.take(),
-            fixed: measurement.fixed.take(),
+            instance: measurement.instance.into_inner().unwrap(),
+            advice: measurement.advice.into_inner().unwrap(),
+            fixed: measurement.fixed.into_inner().unwrap(),
         })
     }
 }
