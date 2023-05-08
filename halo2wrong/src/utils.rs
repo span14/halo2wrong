@@ -110,6 +110,8 @@ pub struct DimensionMeasurement {
     fixed: Mutex<u64>,
 }
 
+impl halo2::circuit::layouter::SyncDeps for DimensionMeasurement {}
+
 impl DimensionMeasurement {
     fn update<C: Into<Any>>(&self, column: C, offset: usize) {
         let mut lock = match column.into() {
