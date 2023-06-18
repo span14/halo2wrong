@@ -89,6 +89,10 @@ impl MainGateConfig {
     pub fn advices(&self) -> [Column<Advice>; WIDTH] {
         [self.a, self.b, self.c, self.d, self.e]
     }
+    /// Returns fixed columns of `MainGateConfig`
+    pub fn fixed(&self) -> [Column<Fixed>; WIDTH] {
+        [self.sa, self.sb, self.sc, self.sd, self.se]
+    }
 }
 
 /// MainGate implements instructions with [`MainGateConfig`]
