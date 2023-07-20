@@ -93,6 +93,10 @@ impl MainGateConfig {
     pub fn fixed(&self) -> [Column<Fixed>; WIDTH] {
         [self.sa, self.sb, self.sc, self.sd, self.se]
     }
+    /// Returns instance column of `MainGateConfig`
+    pub fn instance(&self) -> Column<Instance> {
+        self.instance
+    }
 }
 
 /// MainGate implements instructions with [`MainGateConfig`]
