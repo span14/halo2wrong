@@ -8,7 +8,7 @@ edition = "2021"
 num-bigint = { version = "0.4", features = ["rand"] }
 num-integer = "0.1"
 num-traits = "0.2"
-halo2 = { package = "halo2_proofs", git = "https://github.com/zkonduit/halo2", branch= "ac/update-h2curves"}
+halo2 = { package = "halo2_proofs",  rev= "0f000478f42f065353b93d54a8d8c7ff256bcd6b", default_features = false, git = "https://github.com/privacy-scaling-explorations/halo2" }
 
 
 
