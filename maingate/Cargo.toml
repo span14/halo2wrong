@@ -18,3 +18,5 @@ rand_core = { version = "0.6", default-features = false }
 [features]
 default = []
 circuit-params = ["halo2wrong/circuit-params"]
+mv-lookup = ["halo2wrong/mv-lookup"]
+

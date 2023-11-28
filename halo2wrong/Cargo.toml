@@ -8,7 +8,7 @@ edition = "2021"
 num-bigint = { version = "0.4", features = ["rand"] }
 num-integer = "0.1"
 num-traits = "0.2"
-halo2 = { package = "halo2_proofs", ref="3d7b5e61b3052680ccb279e05bdcc21dd8a8fedf", git = "https://github.com/zkonduit/halo2" }
+halo2 = { package = "halo2_proofs", branch="ac/lookup-modularity", git = "https://github.com/zkonduit/halo2" }
 
 
 
@@ -19,3 +19,4 @@ rand_core = { version = "0.6", default-features = false }
 [features]
 default = []
 circuit-params = ["halo2/circuit-params"]
+mv-lookup = ["halo2/mv-lookup"]
