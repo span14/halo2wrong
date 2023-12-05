@@ -8,7 +8,7 @@ edition = "2021"
 num-bigint = { version = "0.4", features = ["rand"] }
 num-integer = "0.1"
 num-traits = "0.2"
-halo2 = { package = "halo2_proofs", branch="ezkl_benchmark", git = "https://github.com/span14/halo2.git" }
+halo2 = { package = "halo2_proofs", branch="ezkl_ecc", git = "https://github.com/span14/halo2.git" }
 
 
 
